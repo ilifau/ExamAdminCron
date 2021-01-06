@@ -1,0 +1,18 @@
+//
+// Copyright (c) 2017 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg
+// GPLv3, see LICENSE
+//
+// @author Fred Neumann <fred.neumann@fau.de>
+// @version $Id$
+//
+
+<!-- language file start -->
+job_title#:#Prüfungs-Einrichtung
+job_description#:#Erzeugt und konfiguriert Kurse für Prüfungen
+message_admin_plugin_missing#:#Bitte installieren und aktivieren Sie das zuerst das Plugin ExamAdmin (https://github.com/ilifau/ExamAdmin)!
+no_course_created#:#Kein Kurs angelegt
+one_course_created#:#1 Kurs angelegt
+x_courses_created#:#%s Archive erzeugt
+set_last_run#:#Setze letzten Durchlauf
+set_last_run_info#:#Der nächste Start wird ausgehend vom letzten Durchlauf anhand des Zeitplans bestimmt
+last_run#:#Letzter Durchlauf
