@@ -92,17 +92,17 @@ class ilExamAdminCronJob  extends ilCronJob
 				if ($number == 0)
 				{
 					$result->setStatus(ilCronJobResult::STATUS_NO_ACTION);
-					$result->setMessage($this->plugin->txt('no_course_created'));
+					$result->setMessage($this->plugin->txt('no_course_handled'));
 				}
 				elseif ($number == 1)
 				{
 					$result->setStatus(ilCronJobResult::STATUS_OK);
-					$result->setMessage($this->plugin->txt('one_course_created'));
+					$result->setMessage($this->plugin->txt('one_course_handled'));
 
 				}
 				else {
 					$result->setStatus(ilCronJobResult::STATUS_OK);
-					$result->setMessage(sprintf($this->plugin->txt('x_courses_created'), $number));
+					$result->setMessage(sprintf($this->plugin->txt('x_courses_handled'), $number));
 				}
 				return $result;
 			}

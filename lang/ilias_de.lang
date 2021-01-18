@@ -10,9 +10,9 @@
 job_title#:#Prüfungs-Einrichtung
 job_description#:#Erzeugt und konfiguriert Kurse für Prüfungen
 message_admin_plugin_missing#:#Bitte installieren und aktivieren Sie das zuerst das Plugin ExamAdmin (https://github.com/ilifau/ExamAdmin)!
-no_course_created#:#Kein Kurs angelegt
-one_course_created#:#1 Kurs angelegt
-x_courses_created#:#%s Archive erzeugt
+no_course_handled#:#Kein Kurs erzeugt/aktualisiert
+one_course_handled#:#1 Kurs erzeugt/aktualisiert
+x_courses_created#:#%s Kurse erzeugt/aktualisiert
 set_last_run#:#Setze letzten Durchlauf
 set_last_run_info#:#Der nächste Start wird ausgehend vom letzten Durchlauf anhand des Zeitplans bestimmt
 last_run#:#Letzter Durchlauf
