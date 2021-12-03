@@ -84,33 +84,25 @@ class ilExamAdminCronJob  extends ilCronJob
 		}
 		else
 		{
-			try
-			{
-				/** @var ilExamAdminPlugin $adminPlugin */
-				$adminPlugin = $this->plugin->getAdminPlugin();
-				$number = $adminPlugin->handleCronJob();
-				if ($number == 0)
-				{
-					$result->setStatus(ilCronJobResult::STATUS_NO_ACTION);
-					$result->setMessage($this->plugin->txt('no_course_handled'));
-				}
-				elseif ($number == 1)
-				{
-					$result->setStatus(ilCronJobResult::STATUS_OK);
-					$result->setMessage($this->plugin->txt('one_course_handled'));
+            /** @var ilExamAdminPlugin $adminPlugin */
+            $adminPlugin = $this->plugin->getAdminPlugin();
+            $number = $adminPlugin->handleCronJob();
+            if ($number == 0)
+            {
+                $result->setStatus(ilCronJobResult::STATUS_NO_ACTION);
+                $result->setMessage($this->plugin->txt('no_course_handled'));
+            }
+            elseif ($number == 1)
+            {
+                $result->setStatus(ilCronJobResult::STATUS_OK);
+                $result->setMessage($this->plugin->txt('one_course_handled'));
 
-				}
-				else {
-					$result->setStatus(ilCronJobResult::STATUS_OK);
-					$result->setMessage(sprintf($this->plugin->txt('x_courses_handled'), $number));
-				}
-				return $result;
-			}
-			catch (Exception $e) {
-				$result->setStatus(ilCronJobResult::STATUS_FAIL);
-				$result->setMessage($e->getMessage());
-				return $result;
-			}
+            }
+            else {
+                $result->setStatus(ilCronJobResult::STATUS_OK);
+                $result->setMessage(sprintf($this->plugin->txt('x_courses_handled'), $number));
+            }
+            return $result;
 		}
 	}
 
