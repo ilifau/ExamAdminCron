@@ -5,19 +5,18 @@ include_once("./Services/Cron/classes/class.ilCronHookPlugin.php");
 
 class ilExamAdminCronPlugin extends ilCronHookPlugin
 {
-	function getPluginName()
+	function getPluginName(): string
 	{
 		return "ExamAdminCron";
 	}
 
-	function getCronJobInstances()
+	function getCronJobInstances(): array
 	{
 		return array($this->getCronJobInstance('exam_admin_cron'));
 	}
 
-	function getCronJobInstance($a_job_id)
+	function getCronJobInstance($a_job_id): ilCronJob
 	{
-		$this->includeClass('class.ilExamAdminCronJob.php');
 		return new ilExamAdminCronJob($this);
 	}
 
@@ -26,10 +25,12 @@ class ilExamAdminCronPlugin extends ilCronHookPlugin
 	 * @return bool
 	 * @throws ilPluginException
 	 */
-	function beforeActivation()
+	function beforeActivation(): bool
 	{
+		global $DIC;
+		
 		if (!$this->checkAdminPluginActive()) {
-			ilUtil::sendFailure($this->txt("message_admin_plugin_missing"), true);
+			$DIC->ui()->mainTemplate()->setOnScreenMessage('failure', $this->txt("message_admin_plugin_missing"), true);
 			// this does not show the message
 			// throw new ilPluginException($this->txt("message_creator_plugin_missing"));
 			return false;
@@ -42,21 +43,34 @@ class ilExamAdminCronPlugin extends ilCronHookPlugin
 	 * Check if the player plugin is active
 	 * @return bool
 	 */
-	public function checkAdminPluginActive()
+	public function checkAdminPluginActive(): bool
 	{
 		global $DIC;
-		/** @var ilPluginAdmin $ilPluginAdmin */
-		$ilPluginAdmin = $DIC['ilPluginAdmin'];
 
-		return $ilPluginAdmin->isActive('Services', 'UIComponent', 'uihk', 'ExamAdmin');
+		/** @var ilComponentFactory $factory */
+		$factory = $DIC["component.factory"];
+	
+		/** @var ilPlugin $plugin */
+		foreach ($factory->getActivePluginsInSlot('uihk') as $plugin) {
+			if ($plugin->getPluginName() == 'ExamAdmin') {
+				return $plugin->isActive();
+			}
+		}
+		return false;	
 	}
+
 
 	/**
 	 * Get the creator plugin object
 	 * @return ilPlugin
 	 */
-	public function getAdminPlugin()
+	public function getAdminPlugin(): ilPlugin
 	{
-		return ilPluginAdmin::getPluginObject('Services', 'UIComponent', 'uihk', 'ExamAdmin');
+		global $DIC;
+
+        /** @var ilComponentFactory $factory */
+        $factory = $DIC["component.factory"];
+
+		return $factory->getPlugin('examad');
 	}
 }

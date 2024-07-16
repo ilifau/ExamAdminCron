@@ -2,7 +2,7 @@
 // Copyright (c) 2018 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg, GPLv3, see LICENSE
 
 include_once "Services/Cron/classes/class.ilCronJob.php";
-
+use ILIAS\Cron\Schedule\CronJobScheduleType;
 class ilExamAdminCronJob  extends ilCronJob
 {
 	/** @var  ilExamAdminCronPlugin */
@@ -13,17 +13,17 @@ class ilExamAdminCronJob  extends ilCronJob
 		$this->plugin = $plugin;
 	}
 
-	public function getId()
+	public function getId(): string
 	{
 		return "exam_admin_cron";
 	}
 
-	public function getTitle()
+	public function getTitle(): string
 	{
 		return $this->plugin->txt('job_title');
 	}
 
-	public function getDescription()
+	public function getDescription(): string
 	{
 		if (!$this->plugin->checkAdminPluginActive()) {
 			return $this->plugin->txt('message_admin_plugin_missing');
@@ -31,27 +31,27 @@ class ilExamAdminCronJob  extends ilCronJob
 		return $this->plugin->txt('job_description');
 	}
 
-	public function getDefaultScheduleType()
+	public function getDefaultScheduleType(): IlIAS\Cron\Schedule\CronJobScheduleType
 	{
-		return self::SCHEDULE_TYPE_IN_HOURS;
+		return CronJobScheduleType::SCHEDULE_TYPE_IN_HOURS;
 	}
 
-	public function getDefaultScheduleValue()
+	public function getDefaultScheduleValue(): int|null
 	{
 		return 1;
 	}
 
-	public function hasAutoActivation()
+	public function hasAutoActivation(): bool
 	{
 		return true;
 	}
 
-	public function hasFlexibleSchedule()
+	public function hasFlexibleSchedule(): bool
 	{
 		return true;
 	}
 
-	public function hasCustomSettings()
+	public function hasCustomSettings(): bool
 	{
 		return true;
 	}
@@ -60,7 +60,7 @@ class ilExamAdminCronJob  extends ilCronJob
 	 * Defines whether or not a cron job can be started manually
 	 * @return bool
 	 */
-	public function isManuallyExecutable()
+	public function isManuallyExecutable(): bool
 	{
 		if (!$this->plugin->checkAdminPluginActive()) {
 			return false;
@@ -72,7 +72,7 @@ class ilExamAdminCronJob  extends ilCronJob
 	 * Run the cron job
 	 * @return ilCronJobResult
 	 */
-	public function run()
+	public function run(): ilCronJobResult
 	{
 		$result = new ilCronJobResult();
 
@@ -113,7 +113,7 @@ class ilExamAdminCronJob  extends ilCronJob
 	 * @param ilPropertyFormGUI $a_form
 	 * @throws ilDateTimeException
 	 */
-	public function addCustomSettingsToForm(ilPropertyFormGUI $a_form)
+	public function addCustomSettingsToForm(ilPropertyFormGUI $a_form): void
 	{
 		$setrun = new ilCheckboxInputGUI($this->plugin->txt('set_last_run'), 'set_last_run');
 		$setrun->setInfo($this->plugin->txt('set_last_run_info'));
@@ -133,7 +133,7 @@ class ilExamAdminCronJob  extends ilCronJob
 	 * @param ilPropertyFormGUI $a_form
 	 * @return boolean
 	 */
-	public function saveCustomSettings(ilPropertyFormGUI $a_form)
+	public function saveCustomSettings(ilPropertyFormGUI $a_form): bool
 	{
 		global $DIC;
 		$ilDB = $DIC->database();
