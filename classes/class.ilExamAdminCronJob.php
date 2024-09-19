@@ -169,9 +169,10 @@ class ilExamAdminCronJob  extends ilCronJob
 	 * @return ilDateTime|null
 	 * @throws ilDateTimeException
 	 */
-	public function getLastRun()
+	public function getLastRun(): ilDateTime|null
 	{
-		$rows = ilCronManager::getCronJobData($this->getId());
+		global $DIC;
+		$rows = $DIC['cron.repository']->getCronJobData($this->getId());
 		$ts = $rows[0]['job_result_ts'];
 
 		if ($ts > 0) {
